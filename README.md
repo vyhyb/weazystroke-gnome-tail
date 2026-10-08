@@ -2,13 +2,15 @@
 
 A GNOME Shell extension based on [Mouse Tail](https://github.com/LaneSun/mouse-tail). It draws the existing Mouse Tail trail only while the configured WeazyStroke trigger is held.
 
+The extension was developed with the use of GitHub Copilot under supervision and locally tested. The extension is not affiliated with the upstream Mouse Tail project.
+
 ## Compatibility
 
-The current upstream Mouse Tail code supports GNOME Shell 47 through 51, including GNOME 50's `Meta.CursorTracker` API. The plugin is tested on GNOME Shell 50.5 and includes the renderer locally; it does not depend on a sibling checkout at runtime.
+The current upstream Mouse Tail code should have supported GNOME Shell 47 through 51, including GNOME 50's `Meta.CursorTracker` API. The plugin is tested on GNOME Shell 50.5 and includes the renderer locally; it does not depend on a sibling checkout at runtime.
 
 ## Trigger behavior
 
-Choose one of three trigger modes in the **WeazyStroke** preferences page:
+Choose one of three trigger modes in the [WeazyStroke](https://github.com/nine7nine/WeazyStroke) preferences page:
 
 - **WeazyStroke** uses `trigger_button` and `trigger_modifiers` from:
 
