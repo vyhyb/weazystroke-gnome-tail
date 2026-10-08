@@ -1,0 +1,19 @@
+# Build artifacts
+*.shell-extension.zip
+schemas/gschemas.compiled
+
+# Editor
+*~
+*.bak
+*.swp
+
+# OS
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+
+# ZCode agent artifacts
+.zcode/
+locale/

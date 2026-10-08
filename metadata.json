@@ -1,0 +1,9 @@
+{
+  "name": "WeazyStroke GNOME Tail",
+  "description": "Draw a mouse tail while the WeazyStroke trigger is held",
+  "gettext-domain": "weazystroke-gnome-tail",
+  "settings-schema": "org.gnome.shell.extensions.weazystroke-gnome-tail",
+  "uuid": "weazystroke-gnome-tail@weazystroke",
+  "shell-version": ["47", "48", "49", "50", "51"],
+  "url": "https://github.com/nine7nine/WeazyStroke"
+}
