@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-UUID="weazystroke-gnome-tail@weazystroke"
+UUID="weazystroke-gnome-tail@vyhyb.github.io"
 
 "$SCRIPT_DIR/package.sh"
 gnome-extensions install --force "$SCRIPT_DIR/$UUID.shell-extension.zip"

@@ -54,7 +54,7 @@ bash -n install.sh package.sh
 `./install.sh` builds, installs, and enables the extension per-user. Check it with:
 
 ```bash
-gnome-extensions info weazystroke-gnome-tail@weazystroke
+gnome-extensions info weazystroke-gnome-tail@vyhyb.github.io
 ```
 
 On Wayland, a newly installed UUID may not be discovered until logout/login. For trigger testing, keep the WeazyStroke daemon running, hold the configured trigger while moving the pointer, and check the History tab/file if the trail stays invisible.
