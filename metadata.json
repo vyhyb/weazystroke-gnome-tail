@@ -4,6 +4,6 @@
   "gettext-domain": "weazystroke-gnome-tail",
   "settings-schema": "org.gnome.shell.extensions.weazystroke-gnome-tail",
   "uuid": "weazystroke-gnome-tail@weazystroke",
-  "shell-version": ["47", "48", "49", "50", "51"],
-  "url": "https://github.com/nine7nine/WeazyStroke"
+  "shell-version": ["50"],
+  "url": "https://github.com/vyhyb/weazystroke-gnome-tail"
 }
