@@ -24,8 +24,9 @@ This folder is intended to become a standalone repository later. Runtime files a
 - No-trigger mode samples and draws on every pointer movement.
 - Modifier bits are Ctrl=1, Alt=2, Shift=4, Super=8.
 - GNOME's global pointer mask exposes button masks 1 through 5. This machine reports a physical right-button event (`BTN_RIGHT`) as `BUTTON2_MASK`; the matcher therefore accepts either `BUTTON3_MASK` or `BUTTON2_MASK` for WeazyStroke button 3. This can also make middle-click activate the trail on affected systems.
-- WeazyStroke side buttons 8 and 9 are not supported by the current GNOME pointer-mask implementation.
-- Preferences show whether the config was found/valid and the effective trigger. Config is read when the extension is enabled; disable and re-enable after changing trigger settings.
+- When WeazyStroke runs with `--grab`, the daemon emits the `StrokeActive(b)` signal on D-Bus (`org.weazystroke.Daemon`, `/org/weazystroke/Daemon`), which activates the trail and allows side buttons 8 and 9 to work seamlessly.
+- In polling mode without the daemon signal, WeazyStroke side buttons 8 and 9 are not supported.
+- Preferences show whether the config was found/valid and the effective trigger. Config is read when the extension is enabled; disable and re-enable after changing trigger settings in polling mode.
 
 ## Defaults
 
