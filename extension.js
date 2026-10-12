@@ -55,7 +55,7 @@ export default class MouseTrailExtension extends Extension {
       },
     );
     this._dbusSubId = Gio.DBus.session.signal_subscribe(
-      null,
+      "org.weazystroke.Daemon",
       "org.weazystroke.Daemon",
       "StrokeActive",
       "/org/weazystroke/Daemon",
