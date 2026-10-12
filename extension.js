@@ -1,5 +1,6 @@
 import St from "gi://St";
 import Clutter from "gi://Clutter";
+import Gio from "gi://Gio";
 import GLib from "gi://GLib";
 import Shell from "gi://Shell";
 
@@ -42,6 +43,29 @@ export default class MouseTrailExtension extends Extension {
     this._style = readStyleState(this._settings);
     this._refreshTrigger();
     this._triggerActive = false;
+    this._dbusActive = false;
+    this._dbusLastMotion = 0;
+    this._daemonWatchId = Gio.bus_watch_name(
+      Gio.BusType.SESSION,
+      "org.weazystroke.Daemon",
+      Gio.BusNameWatcherFlags.NONE,
+      null,
+      () => {
+        this._dbusActive = false;
+      },
+    );
+    this._dbusSubId = Gio.DBus.session.signal_subscribe(
+      "org.weazystroke.Daemon",
+      "org.weazystroke.Daemon",
+      "StrokeActive",
+      "/org/weazystroke/Daemon",
+      null,
+      Gio.DBusSignalFlags.NONE,
+      (_conn, _sender, _path, _iface, _name, params) => {
+        [this._dbusActive] = params.deepUnpack();
+        this._dbusLastMotion = Date.now();
+      },
+    );
     this._triggerSettingsIds = [
       "trigger-mode",
       "own-trigger-button",
@@ -176,8 +200,9 @@ export default class MouseTrailExtension extends Extension {
   }
 
   _refreshTrigger() {
+    this._triggerMode = this._settings.get_string("trigger-mode");
     this._trigger = resolveTrigger(
-      this._settings.get_string("trigger-mode"),
+      this._triggerMode,
       readWeazyStrokeTrigger(),
       this._settings.get_int("own-trigger-button"),
       this._settings.get_int("own-trigger-modifiers"),
@@ -188,17 +213,23 @@ export default class MouseTrailExtension extends Extension {
     const layer = this._drawingLayer;
     if (!layer) return;
     const [x, y, state] = global.get_pointer();
-    this._triggerActive = triggerStateMatches(
+    const polled = triggerStateMatches(
       this._trigger,
       state,
       kPointerButtonMasks,
       kTriggerModifierMasks,
     );
+    const isWeazy = !this._triggerMode || this._triggerMode === "weazystroke";
+    this._triggerActive = polled || (isWeazy && this._dbusActive);
     if (x !== this._lastPointerX || y !== this._lastPointerY) {
       this._lastPointerX = x;
       this._lastPointerY = y;
+      if (this._dbusActive) this._dbusLastMotion = Date.now();
       if (this._triggerActive) this._onCapturedEvent(x, y);
     }
+
+    if (this._dbusActive && Date.now() - this._dbusLastMotion > 5000)
+      this._dbusActive = false;
 
     const now = Date.now();
     const pts = (this._points = this._points.filter(
@@ -268,6 +299,16 @@ export default class MouseTrailExtension extends Extension {
 
     this._triggerActive = false;
     this._trigger = null;
+
+    if (this._dbusSubId) {
+      Gio.DBus.session.signal_unsubscribe(this._dbusSubId);
+      this._dbusSubId = null;
+    }
+    if (this._daemonWatchId) {
+      Gio.bus_unwatch_name(this._daemonWatchId);
+      this._daemonWatchId = null;
+    }
+    this._dbusActive = false;
 
     if (this._overviewShowingId) {
       Main.overview.disconnect(this._overviewShowingId);
