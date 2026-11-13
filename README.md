@@ -6,7 +6,7 @@ The extension was developed with the use of GitHub Copilot under supervision and
 
 ## Compatibility
 
-The current upstream Mouse Tail code should have supported GNOME Shell 47 through 51, including GNOME 50's `Meta.CursorTracker` API. The plugin is tested on GNOME Shell 50.5 and includes the renderer locally; it does not depend on a sibling checkout at runtime.
+The current upstream Mouse Tail code should have supported GNOME Shell 47 through 51, including GNOME 50's `Meta.CursorTracker` API. The plugin declares GNOME Shell 50 and 51, is tested on GNOME Shell 50.5 and 51.1 (Fedora 45), and includes the renderer locally; it does not depend on a sibling checkout at runtime.
 
 ## Trigger behavior
 
