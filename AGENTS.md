@@ -8,8 +8,8 @@ This folder is intended to become a standalone repository later. Runtime files a
 
 ## Compatibility and Rendering
 
-- Current development target: GNOME Shell 50.5 on Wayland.
-- `metadata.json` currently declares Shell 47 through 51.
+- Current development target: GNOME Shell 51.1 on Wayland (Fedora 45); previously tested on 50.5.
+- `metadata.json` currently declares Shell 50 and 51.
 - Add the overlay actor to `Main.uiGroup`, not directly to `global.stage`; use `Main.uiGroup` for stacking and cleanup too.
 - Use `global.get_pointer()` to poll `[x, y, modifierMask]`. In this environment, `Meta.CursorTracker.get_pointer()` did not provide usable behavior for the trail.
 - The trail is rendered by `St.DrawingArea` and `trailRender.js`.
